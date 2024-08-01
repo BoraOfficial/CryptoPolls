@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='poll.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <title>View Poll</title>
+</head>
+<body>
+    <div class="card center" style="width: 30%;">
+        <div class="card-body">
+          <h4 class="card-title" style="font-weight: bold;text-align: center;">{{ poll_title }}</h4>
+          <div class="mb-3">
+            <br>
+            <div id="options_div">
+                <div>
+                    {% for option in options %}
+                    <div class="form-check border" style="border-radius: var(--bs-border-radius);height: 2rem;align-content: center;padding-left: 2rem;" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on right">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" data-voted="{{ option.split('\n')[1] }}" value="{{ option.split('\n')[0] }}">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          {{ option }}
+                        </label>
+                    </div>
+                    <br>
+                    {% endfor %}
+
+                      
+                </div>
+                <br>
+            </div>
+
+
+            <button id="submit" type="submit" class="btn btn-dark" style="width: 100%;height: 3rem;" onclick="postRequest()">Submit</button>
+        </div>
+
+          
+        </div>
+      </div>
+
+
+
+      <form style="display: none; visibility: hidden;" id="dataForm">
+        <input name="choice" id="choice">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      </form>
+
+      <!-- code editors think the code below is an error, it is not. when you run the program it works because flask replaces it. -->
+      <button id="shareButton" 
+      class="border" 
+      style="border-radius: 100%; 
+             width: 30px !important; 
+             height: 30px !important; 
+             bottom: 5px; 
+             position: absolute; 
+             right: 5px; 
+             background-color: #f5f5f5; 
+             background-image: url('{{ url_for('static', filename='share.png') }}'); 
+             background-size: cover; 
+             background-position: center;
+             background-size: 24px 24px;
+             background-repeat: no-repeat;">
+      </button>
+
+
+      <script>
+        document.getElementById('shareButton').addEventListener('click', function () {
+          if (navigator.share) {
+            navigator.share({
+              title: 'Check out my poll!',
+              text: 'Vote on my poll, I need your opinion!',
+              url: window.location.href,
+            })
+              .then(() => {
+                console.log('Share successful');
+              })
+              .catch((error) => {
+                console.error('Error sharing:', error);
+              });
+          } else {
+            alert('Sharing is not supported in this browser. Copy the URL & send it yourself!');
+          }
+        });
+      </script>
+
+      
+
+
+</body>
+</html>

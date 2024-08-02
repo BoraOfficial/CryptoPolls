@@ -1,4 +1,4 @@
-# <img src="https://github.com/user-attachments/assets/2bb49dcb-9877-4366-960f-0c819ef1869f" style="max-width: 2%;"> CryptoPolls
+# <img src="https://github.com/user-attachments/assets/2bb49dcb-9877-4366-960f-0c819ef1869f" width="20" height="20" alt="icon"> CryptoPolls
 Blockchain-based poll system. Create & vote on polls, using the power of the blockchain. Fully responsive web app.
 
 # Showcase
